@@ -7,14 +7,14 @@ namespace TechJobs6Persistent.ViewModels
 	public class AddSkillViewModel
 	{
 		//job elements
-		public int? JobId { get; set; }
-		public Job? Job { get; set; }
+		public int JobId { get; set; }
+		public Job Job { get; set; }
 
 		//skill elements
-		public int? SkillId { get; set; }
-		public List<SelectListItem>? Skills { get; set; }
+		public int SkillId { get; set; }
+		public List<SelectListItem> Skills { get; set; }
 
-		public AddSkillViewModel(Job? theJob, List<Skill>? possibleSkills)
+		public AddSkillViewModel(Job theJob, List<Skill> possibleSkills)
 		{
             Skills = new List<SelectListItem>();
 
@@ -22,7 +22,7 @@ namespace TechJobs6Persistent.ViewModels
             {
                 Skills?.Add(new SelectListItem
                 {
-                    Value = skill.Id.ToString(),
+                    Value = skill.SkillId.ToString(),
                     Text = skill.SkillName
                 });
             }

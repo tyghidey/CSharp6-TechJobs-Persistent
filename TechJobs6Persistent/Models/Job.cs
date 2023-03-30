@@ -7,15 +7,15 @@ namespace TechJobs6Persistent.Models
 	public class Job
 	{
 		//job elements
-		public int? JobId { get; set; }
-		public string? JobName { get; set; }
+		public int JobId { get; set; }
+		public string JobName { get; set; }
 
 		//employer elements (one to many)
 		
 		//foreign key
-		public int? EmployerId { get; set; }
+		public int EmployerId { get; set; }
         //inverse navigation of Employer.Jobs
-        public Employer? Employer { get; set; }
+        public Employer Employer { get; set; }
 
         //skill elements
 		//navigation point for many to many

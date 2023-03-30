@@ -24,7 +24,7 @@ namespace TechJobs6Persistent.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Skill>? skills = context?.Skills?.ToList();
+            List<Skill> skills = context?.Skills?.ToList();
 
             return View(skills);
         }
@@ -52,9 +52,9 @@ namespace TechJobs6Persistent.Controllers
 
         public IActionResult AddJob(int id)
         {
-            Job? theJob = context?.Jobs?.Find(id);
+            Job theJob = context.Jobs?.Find(id);
 
-            List<Skill>? possibleSkills = context?.Skills?.ToList();
+            List<Skill> possibleSkills = context.Skills.ToList();
 
             AddSkillViewModel? addSkillViewModel = new AddSkillViewModel(theJob, possibleSkills);
 
@@ -67,16 +67,16 @@ namespace TechJobs6Persistent.Controllers
             if (ModelState.IsValid)
             {
 
-                int? jobId = addSkillViewModel.JobId;
-                int? skillId = addSkillViewModel.SkillId;
+                int jobId = addSkillViewModel.JobId;
+                int skillId = addSkillViewModel.SkillId;
 
-                Job? theJob = context?.Jobs?.Include(s => s.Skills).Where(j => j.JobId == jobId).First();
+                Job theJob = context.Jobs.Include(s => s.Skills).Where(j => j.JobId == jobId).First();
 
-                Skill? theSkill = context?.Skills?.Where(s => s.Id == skillId).First();
+                Skill theSkill = context?.Skills?.Where(s => s.SkillId == skillId).First();
 
-                theJob?.Skills?.Add(theSkill);
+                theJob.Skills.Add(theSkill);
 
-                context?.SaveChanges();
+                context.SaveChanges();
 
                 return Redirect("/Skill/About" + jobId);
 
@@ -86,7 +86,7 @@ namespace TechJobs6Persistent.Controllers
 
         public IActionResult About(int id)
         {
-            Skill? theSkill = context?.Skills?.Include(j => j.Jobs).Where(s => s.Id == id).First();
+            Skill theSkill = context.Skills.Include(j => j.Jobs).Where(s => s.SkillId == id).First();
 
             return View(theSkill);
         }

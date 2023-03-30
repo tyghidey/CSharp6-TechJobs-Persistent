@@ -20,8 +20,8 @@
         <br>
         @foreach (var skill in Model.Skills)
         {
-            <label for="@skill.Id">@skill.SkillName</label>
-            <input type="checkbox" name="selectedSkills" value="@skill.Id" />
+            <label for="@skill.SkillId">@skill.SkillName</label>
+            <input type="checkbox" name="selectedSkills" value="@skill.SkillId" />
             <br>
         }
         <a asp-controller="Skill" asp-action="Add">Add Skills</a>

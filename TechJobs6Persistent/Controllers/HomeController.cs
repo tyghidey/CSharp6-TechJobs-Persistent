@@ -20,40 +20,42 @@ public class HomeController : Controller
     // GET: /<controller>/
     public IActionResult Index()
     {
-        List<Job>? jobs = context?.Jobs?.Include(j => j.Employer).Include(j => j.Skills).ToList();
+        List<Job> jobs = context.Jobs.Include(j => j.Employer).Include(j => j.Skills).ToList();
 
         return View(jobs);
     }
 
-    [HttpGet("/Add")]
-    public IActionResult AddJob()
+    [HttpGet]
+    public IActionResult Add()
     {
-        //List<Skill>? skills = context?.Skills?.ToList();
+        List<Skill> skills = context?.Skills?.ToList();
 
-        AddJobViewModel? addJobViewModel = new AddJobViewModel(context?.Employers?.ToList(), context?.Skills?.ToList());
+        AddJobViewModel? addJobViewModel = new AddJobViewModel(context.Employers.ToList(), context.Skills.ToList());
 
         return View(addJobViewModel);
     }
 
-    [HttpPost]
-    //need to loop through for skills and many to many, but from where???
-    public IActionResult ProcessAddJobForm(AddJobViewModel addJobViewModel, string[] selectedSkills)
+
+    public IActionResult ProcessAddJobForm(AddJobViewModel addJobViewModel, List<Skill>selectedSkills)
     {
         if(ModelState.IsValid)
         {
-            Employer? theEmployer = context?.Employers?.Find(addJobViewModel.EmployerId);
+            Employer theEmployer = context.Employers.Find(addJobViewModel.EmployerId);
 
             Job? newJob = new Job()
             {
                 JobName = addJobViewModel.Name,
                 EmployerId = addJobViewModel.EmployerId,
                 Employer = theEmployer,
+                Skills = addJobViewModel.Skills.ToList()
+
+
             //https://www.jennerstrand.se/add-object-to-list-in-c-sharp/
         };
             //need to loop through the skills ?????
 
-            context?.Jobs?.Add(newJob);
-            context?.SaveChanges();
+            context.Jobs.Add(newJob);
+            context.SaveChanges();
 
             return View("Index");
         }
@@ -63,7 +65,7 @@ public class HomeController : Controller
 
     public IActionResult Detail(int id)
     {
-        Job? theJob = context?.Jobs?
+        Job theJob = context.Jobs
                         .Include(j => j.Employer)
                         .Include(j => j.Skills)
                         .Single(j => j.JobId == id);

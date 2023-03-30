@@ -12,14 +12,12 @@
             <tr>
                 <th>Id</th>
                 <th>Skill Name</th>
-                <th>Skill Description</th>
             </tr>
             @foreach(Skill skill in Model)
 {
                     <tr>
-                        <td>@skill.Id</td>
-                        <td><a asp-controller="Skill" asp-action="About" asp-route-id="@skill.Id">@skill.SkillName</a></td>
-                        <td>@skill.SkillDescription</td>
+                        <td>@skill.SkillId</td>
+                        <td><a asp-controller="Skill" asp-action="About" asp-route-id="@skill.SkillId">@skill.SkillName</a></td>
                     </tr>
 
 }

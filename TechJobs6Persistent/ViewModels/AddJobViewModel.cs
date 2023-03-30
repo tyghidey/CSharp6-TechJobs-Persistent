@@ -9,15 +9,15 @@ namespace TechJobs6Persistent.ViewModels
 	{
         //job elements
         [Required(ErrorMessage = "Job is required.")]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         //employer elements
-        public int? EmployerId { get; set; }
+        public int EmployerId { get; set; }
         public List<SelectListItem>? Employers { get; set; }
 
         //skill elements
-        public List<int>? SkillId { get; set; }
-        public List<Skill>? Skills { get; set; }
+        public List<int> SkillId { get; set; }
+        public List<Skill> Skills { get; set; }
 
 
         public AddJobViewModel(List<Employer> employers, List<Skill> skills)
@@ -28,8 +28,8 @@ namespace TechJobs6Persistent.ViewModels
             {
                 Employers?.Add(new SelectListItem
                 {
-                    Value = employer?.Id?.ToString(),
-                    Text = employer?.EmployerName
+                    Value = employer.Id.ToString(),
+                    Text = employer.EmployerName
                 });
             }
 

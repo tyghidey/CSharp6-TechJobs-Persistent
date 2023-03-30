@@ -21,11 +21,13 @@ namespace TechJobs6Persistent.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //connecting job and employer (one to many)
+
             modelBuilder.Entity<Job>()
                 .HasOne(e => e.Employer)
                 .WithMany(j => j.Jobs);
 
             //connecting jobs to skills (many to many)
+            //https://learn.microsoft.com/en-us/ef/core/modeling/relationships/many-to-many
             modelBuilder.Entity<Job>()
                 .HasMany(j => j.Skills)
                 .WithMany(j => j.Jobs)

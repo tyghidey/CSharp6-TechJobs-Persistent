@@ -24,7 +24,7 @@ namespace TechJobs6Persistent.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Employer>? emplployers = context?.Employers?.ToList();
+            List<Employer> emplployers = context.Employers.ToList();
 
             return View(emplployers);
         }
@@ -46,8 +46,8 @@ namespace TechJobs6Persistent.Controllers
                     EmployerLocation = addEmployerViewModel.EmployerLocation
                 };
 
-                context?.Employers?.Add(newEmoplyer);
-                context?.SaveChanges();
+                context.Employers?.Add(newEmoplyer);
+                context.SaveChanges();
 
                 return Redirect("/Employer");
             }
