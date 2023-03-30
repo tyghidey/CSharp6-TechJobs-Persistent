@@ -20,10 +20,12 @@ namespace TechJobs6Persistent.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //connecting job and employer (one to many)
             modelBuilder.Entity<Job>()
                 .HasOne(e => e.Employer)
                 .WithMany(j => j.Jobs);
 
+            //connecting jobs to skills (many to many)
             modelBuilder.Entity<Job>()
                 .HasMany(j => j.Skills)
                 .WithMany(j => j.Jobs)
@@ -34,7 +36,7 @@ namespace TechJobs6Persistent.Data
 
 /*
  * 
- * every job has 1 employer, and one employer  can have multiple jobs
+ * every job has 1 employer, and one employer can have multiple jobs
  * every job knows of one employer
  *  one => many == employer => job
  *  many => one == job => employer
