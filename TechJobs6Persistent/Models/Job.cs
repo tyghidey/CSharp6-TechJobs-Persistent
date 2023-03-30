@@ -11,10 +11,7 @@ namespace TechJobs6Persistent.Models
 		public string JobName { get; set; }
 
 		//employer elements (one to many)
-		
-		//foreign key
 		public int EmployerId { get; set; }
-        //inverse navigation of Employer.Jobs
         public Employer Employer { get; set; }
 
         //skill elements
@@ -30,6 +27,8 @@ namespace TechJobs6Persistent.Models
 		public Job()
 		{
 		}
+
+		
 
     }
 }

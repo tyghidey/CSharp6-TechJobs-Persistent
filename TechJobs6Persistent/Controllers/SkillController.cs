@@ -24,7 +24,7 @@ namespace TechJobs6Persistent.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Skill> skills = context?.Skills?.ToList();
+            List<Skill> skills = context.Skills.ToList();
 
             return View(skills);
         }
@@ -42,8 +42,9 @@ namespace TechJobs6Persistent.Controllers
         {
             if (ModelState.IsValid)
             {
-                context?.Skills?.Add(skill);
-                context?.SaveChanges();
+                context.Skills.Add(skill);
+                context.SaveChanges();
+
                 return Redirect("/Skill/");
             }
 
@@ -53,7 +54,6 @@ namespace TechJobs6Persistent.Controllers
         public IActionResult AddJob(int id)
         {
             Job theJob = context.Jobs?.Find(id);
-
             List<Skill> possibleSkills = context.Skills.ToList();
 
             AddSkillViewModel? addSkillViewModel = new AddSkillViewModel(theJob, possibleSkills);
@@ -71,7 +71,6 @@ namespace TechJobs6Persistent.Controllers
                 int skillId = addSkillViewModel.SkillId;
 
                 Job theJob = context.Jobs.Include(s => s.Skills).Where(j => j.JobId == jobId).First();
-
                 Skill theSkill = context?.Skills?.Where(s => s.SkillId == skillId).First();
 
                 theJob.Skills.Add(theSkill);

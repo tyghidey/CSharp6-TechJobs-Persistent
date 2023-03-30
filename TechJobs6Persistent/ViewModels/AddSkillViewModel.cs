@@ -12,7 +12,7 @@ namespace TechJobs6Persistent.ViewModels
 
 		//skill elements
 		public int SkillId { get; set; }
-		public List<SelectListItem> Skills { get; set; }
+		public List<SelectListItem>? Skills { get; set; }
 
 		public AddSkillViewModel(Job theJob, List<Skill> possibleSkills)
 		{

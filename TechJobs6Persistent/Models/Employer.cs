@@ -5,12 +5,12 @@ namespace TechJobs6Persistent.Models
     public class Employer
 	{
         //employer elements
-        public int? Id { get; set; } //Employer.Id => primary key
-        public string? EmployerName { get; set; }
-        public string? EmployerLocation { get; set; }
+        public int EmployerId { get; set; } 
+        public string EmployerName { get; set; }
+        public string EmployerLocation { get; set; }
 
         //Employer.Jobs = reference navigation property for one to many
-        public List<Job>? Jobs { get; set; }
+        public List<Job> Jobs { get; set; }
 
         public Employer(string employerName, string employerLocation)
         {

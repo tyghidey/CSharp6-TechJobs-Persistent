@@ -1,7 +1,7 @@
 ﻿@using TechJobs6Persistent.Models
 @model Skill
 
-@if (Model?.Jobs?.ToList().Count == 0)
+@if (Model.Jobs.ToList().Count == 0)
 {
     <h1>No Jobs with the given tag</h1>
 }
@@ -12,7 +12,7 @@ else
     <ul>
         @foreach (var skill in Model.Jobs)
         {
-            <li>@skill?.JobName</li>
+            <li>@skill.JobName</li>
         }
     </ul>
 }

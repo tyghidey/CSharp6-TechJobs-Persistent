@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,9 @@ public class HomeController : Controller
     // GET: /<controller>/
     public IActionResult Index()
     {
-        List<Job> jobs = context.Jobs.Include(j => j.Employer).Include(j => j.Skills).ToList();
+        List<Job> jobs = context.Jobs
+                            .Include(j => j.Employer)
+                            .ToList();
 
         return View(jobs);
     }
@@ -28,31 +31,27 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        List<Skill> skills = context?.Skills?.ToList();
+        List<Employer> employers = context.Employers.ToList();
+        List<Skill> skills = context.Skills.ToList();
 
-        AddJobViewModel? addJobViewModel = new AddJobViewModel(context.Employers.ToList(), context.Skills.ToList());
+        AddJobViewModel addJobViewModel = new AddJobViewModel(employers);
 
         return View(addJobViewModel);
     }
 
 
-    public IActionResult ProcessAddJobForm(AddJobViewModel addJobViewModel, List<Skill>selectedSkills)
+    public IActionResult ProcessAddJobForm(AddJobViewModel addJobViewModel)
     {
         if(ModelState.IsValid)
         {
             Employer theEmployer = context.Employers.Find(addJobViewModel.EmployerId);
 
-            Job? newJob = new Job()
+            Job newJob = new Job()
             {
                 JobName = addJobViewModel.Name,
-                EmployerId = addJobViewModel.EmployerId,
-                Employer = theEmployer,
-                Skills = addJobViewModel.Skills.ToList()
+                Employer = theEmployer
+            };
 
-
-            //https://www.jennerstrand.se/add-object-to-list-in-c-sharp/
-        };
-            //need to loop through the skills ?????
 
             context.Jobs.Add(newJob);
             context.SaveChanges();

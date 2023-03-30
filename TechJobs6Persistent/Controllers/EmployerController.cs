@@ -24,16 +24,16 @@ namespace TechJobs6Persistent.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Employer> emplployers = context.Employers.ToList();
+            List<Employer> employers = context.Employers.ToList();
 
-            return View(emplployers);
+            return View(employers);
         }
 
         public IActionResult Add()
         {
             AddEmployerViewModel addEmployerViewModel = new AddEmployerViewModel();
 
-            return View();
+            return View(addEmployerViewModel);
         }
 
         public IActionResult ProcessAddEmployerForm(AddEmployerViewModel addEmployerViewModel)
@@ -56,7 +56,7 @@ namespace TechJobs6Persistent.Controllers
 
         public IActionResult About(int id)
         {
-            Employer? employer = context.Employers?.Where(e=>e.Id == id).First();
+            Employer? employer = context.Employers?.Where(e=>e.EmployerId == id).First();
 
             return View(employer);
         }
