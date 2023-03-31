@@ -3,17 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TechJobs6Persistent.Models
 {
-	public class Skill
-	{
-        //skill elements
-        public int SkillId { get; set; }
+    public class Skill
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters")]
         public string SkillName { get; set; }
-       
-        //job elements
-        //navigation point for many to many
+
         public ICollection<Job>? Jobs { get; set; }
 
-        //constructors
         public Skill(string name)
         {
             SkillName = name;
@@ -21,8 +20,8 @@ namespace TechJobs6Persistent.Models
         }
 
         public Skill()
-		{
-		}
-	}
+        {
+        }
+    }
 }
 

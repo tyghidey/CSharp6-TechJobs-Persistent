@@ -25,7 +25,6 @@ namespace TechJobs6Persistent.Controllers
         public IActionResult Index()
         {
             List<Skill> skills = context.Skills.ToList();
-
             return View(skills);
         }
 
@@ -33,7 +32,6 @@ namespace TechJobs6Persistent.Controllers
         public IActionResult Add()
         {
             Skill skill = new Skill();
-
             return View(skill);
         }
 
@@ -51,12 +49,13 @@ namespace TechJobs6Persistent.Controllers
             return View("Add", skill);
         }
 
+        [HttpGet]
         public IActionResult AddJob(int id)
         {
-            Job theJob = context.Jobs?.Find(id);
+            Job theJob = context.Jobs.Find(id);
             List<Skill> possibleSkills = context.Skills.ToList();
 
-            AddSkillViewModel? addSkillViewModel = new AddSkillViewModel(theJob, possibleSkills);
+            AddSkillViewModel addSkillViewModel = new AddSkillViewModel(theJob, possibleSkills);
 
             return View(addSkillViewModel);
         }
@@ -66,26 +65,25 @@ namespace TechJobs6Persistent.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 int jobId = addSkillViewModel.JobId;
                 int skillId = addSkillViewModel.SkillId;
 
-                Job theJob = context.Jobs.Include(s => s.Skills).Where(j => j.JobId == jobId).First();
-                Skill theSkill = context?.Skills?.Where(s => s.SkillId == skillId).First();
+                Job theJob = context.Jobs.Include(s => s.Skills).Where(j => j.Id == jobId).First();
+                Skill theSkill = context.Skills.Where(s => s.Id == skillId).First();
 
                 theJob.Skills.Add(theSkill);
 
                 context.SaveChanges();
 
-                return Redirect("/Skill/About" + jobId);
-
+                return Redirect("/Job/Detail/" + jobId);
             }
+
             return View(addSkillViewModel);
         }
 
-        public IActionResult About(int id)
+        public IActionResult Detail(int id)
         {
-            Skill theSkill = context.Skills.Include(j => j.Jobs).Where(s => s.SkillId == id).First();
+            Skill theSkill = context.Skills.Include(j => j.Jobs).Where(s => s.Id == id).First();
 
             return View(theSkill);
         }

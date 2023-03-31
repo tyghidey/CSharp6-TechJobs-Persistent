@@ -4,22 +4,22 @@
 
 @if (Model.Count == 0)
 {
-        <p>No skills have been added yet!</p>
+    <p>No skill yet!</p>
 }
- else
+else
 {
-        <table class="table">
+    <table class="table">
+        <tr>
+            <th>Id
+            <th>Skill Name</th>
+        </tr>
+        @foreach (Skill skill in Model)
+        {
             <tr>
-                <th>Id</th>
-                <th>Skill Name</th>
+                <td>@skill.Id</td>
+                <td><a asp-controller="Skill" asp-action="Detail" asp-route-id="@skill.Id">@skill.SkillName</a></td>
             </tr>
-            @foreach(Skill skill in Model)
-{
-                    <tr>
-                        <td>@skill.SkillId</td>
-                        <td><a asp-controller="Skill" asp-action="About" asp-route-id="@skill.SkillId">@skill.SkillName</a></td>
-                    </tr>
-
+        }
+    </table>
 }
-        </table>
-}
+<p><a asp-controller="Skill" asp-action="Add">Add more skills</a></p>

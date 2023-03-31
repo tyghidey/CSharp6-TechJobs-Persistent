@@ -1,79 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TechJobs6Persistent.Data;
-using TechJobs6Persistent.Models;
-using TechJobs6Persistent.ViewModels;
+﻿//using System.Collections;
+//using System.Collections.Generic;
+//using System.Diagnostics;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.EntityFrameworkCore;
+//using TechJobs6Persistent.Data;
+//using TechJobs6Persistent.Models;
+//using TechJobs6Persistent.ViewModels;
 
-namespace TechJobs6Persistent.Controllers;
+//namespace TechJobs6Persistent.Controllers;
 
-public class HomeController : Controller
-{
-    private JobDbContext context;
+//public class HomeController : Controller
+//{
+//    private readonly ILogger<HomeController> _logger;
 
-    public HomeController(JobDbContext dbContext)
-    {
-        context = dbContext;
-    }
+//    public HomeController(ILogger<HomeController> logger)
+//    {
+//        _logger = logger;
+//    }
 
-    // GET: /<controller>/
-    public IActionResult Index()
-    {
-        List<Job> jobs = context.Jobs
-                            .Include(j => j.Employer)
-                            .ToList();
+//    public IActionResult Index()
+//    {
+//        return View();
+//    }
 
-        return View(jobs);
-    }
+//    public IActionResult Privacy()
+//    {
+//        return View();
+//    }
 
-    [HttpGet]
-    public IActionResult Add()
-    {
-        List<Employer> employers = context.Employers.ToList();
-        List<Skill> skills = context.Skills.ToList();
-
-        AddJobViewModel addJobViewModel = new AddJobViewModel(employers);
-
-        return View(addJobViewModel);
-    }
-
-
-    public IActionResult ProcessAddJobForm(AddJobViewModel addJobViewModel)
-    {
-        if(ModelState.IsValid)
-        {
-            Employer theEmployer = context.Employers.Find(addJobViewModel.EmployerId);
-
-            Job newJob = new Job()
-            {
-                JobName = addJobViewModel.Name,
-                Employer = theEmployer
-            };
-
-
-            context.Jobs.Add(newJob);
-            context.SaveChanges();
-
-            return View("Index");
-        }
-
-        return View("Add", addJobViewModel);
-    }
-
-    public IActionResult Detail(int id)
-    {
-        Job theJob = context.Jobs
-                        .Include(j => j.Employer)
-                        .Include(j => j.Skills)
-                        .Single(j => j.JobId == id);
-
-        JobDetailViewModel jobDetailViewModel = new JobDetailViewModel(theJob);
-
-        return View(jobDetailViewModel);
-    }
-
-
-}
+//    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+//    public IActionResult Error()
+//    {
+//        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+//    }
+//}
 

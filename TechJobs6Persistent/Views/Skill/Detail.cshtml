@@ -3,7 +3,7 @@
 
 @if (Model.Jobs.ToList().Count == 0)
 {
-    <h1>No Jobs with the given tag</h1>
+    <h1>No Jobs with the given skills</h1>
 }
 else
 {
@@ -12,7 +12,7 @@ else
     <ul>
         @foreach (var skill in Model.Jobs)
         {
-            <li>@skill.JobName</li>
+            <li>@skill.Name</li>
         }
     </ul>
 }

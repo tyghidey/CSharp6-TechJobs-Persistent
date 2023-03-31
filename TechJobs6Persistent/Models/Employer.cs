@@ -1,27 +1,22 @@
 ﻿using System;
 namespace TechJobs6Persistent.Models
 {
-    //principal entity for job: one employer for many jobs
     public class Employer
-	{
-        //employer elements
-        public int EmployerId { get; set; } 
-        public string EmployerName { get; set; }
-        public string EmployerLocation { get; set; }
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Location { get; set; }
 
-        //Employer.Jobs = reference navigation property for one to many
         public List<Job> Jobs { get; set; }
 
-        public Employer(string employerName, string employerLocation)
+        public Employer(string name, string location)
         {
-            EmployerName = employerName;
-            EmployerLocation = employerLocation;
+            Name = name;
+            Location = location;
         }
 
         public Employer()
         {
         }
-
     }
 }
-

@@ -3,44 +3,30 @@ using TechJobs6Persistent.Models;
 
 namespace TechJobs6Persistent.ViewModels
 {
-	public class JobDetailViewModel
-	{
-		//job elements
-		public int JobId { get; set; }
-		public string JobName { get; set; }
+    public class JobDetailViewModel
 
-		//employer elements
-		public string EmployerName { get; set; }
-
-
-		//skill elements
-		public string SkillText { get; set; }
-
-		public JobDetailViewModel(Job theJob, List<Skill> skills)
-		{
-			JobId = theJob.JobId;
-			JobName = theJob.JobName;
-			EmployerName = theJob.Employer.EmployerName;
-
-			SkillText =  "";
-			List<Skill> jobSkills = theJob.Skills.ToList();
-
-			for(var i = 0; i < jobSkills?.Count; i++)
-			{
-				SkillText += jobSkills[i].SkillName;
-				if(i < jobSkills.Count -1)
-				{
-					SkillText += ", ";
-				}
-			}
-		}
-
-		public JobDetailViewModel()
-		{
-		}
+    {
+        public int JobId { get; set; }
+        public string Name { get; set; }
+        public string EmployerName { get; set; }
+        public string SkillText { get; set; }
 
         public JobDetailViewModel(Job theJob)
         {
+            JobId = theJob.Id;
+            Name = theJob.Name;
+            EmployerName = theJob.Employer.Name;
+            SkillText = "";
+            List<Skill> skills = theJob.Skills.ToList();
+
+            for (int i = 0; i < skills.Count; i++)
+            {
+                SkillText += (skills[i].SkillName);
+                if (i < skills.Count - 1)
+                {
+                    SkillText += ", ";
+                }
+            }
         }
     }
 }

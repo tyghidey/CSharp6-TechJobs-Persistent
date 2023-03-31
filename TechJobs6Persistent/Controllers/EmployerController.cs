@@ -22,6 +22,7 @@ namespace TechJobs6Persistent.Controllers
         }
 
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
             List<Employer> employers = context.Employers.ToList();
@@ -29,38 +30,33 @@ namespace TechJobs6Persistent.Controllers
             return View(employers);
         }
 
-        public IActionResult Add()
+        [HttpGet]
+        public IActionResult Create()
         {
             AddEmployerViewModel addEmployerViewModel = new AddEmployerViewModel();
 
             return View(addEmployerViewModel);
         }
 
-        public IActionResult ProcessAddEmployerForm(AddEmployerViewModel addEmployerViewModel)
+        [HttpPost]
+        public IActionResult ProcessCreateEmployerForm(AddEmployerViewModel addEmployerViewModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                Employer newEmoplyer = new Employer
+                Employer newEmployer = new Employer
                 {
-                    EmployerName = addEmployerViewModel.EmployerName,
-                    EmployerLocation = addEmployerViewModel.EmployerLocation
+                    Name = addEmployerViewModel.EmployerName,
+                    Location = addEmployerViewModel.EmployerLocation
                 };
 
-                context.Employers?.Add(newEmoplyer);
+                context.Employers.Add(newEmployer);
                 context.SaveChanges();
 
                 return Redirect("/Employer");
             }
-            return View("Add", addEmployerViewModel);
+
+            return View("Create", addEmployerViewModel);
         }
-
-        public IActionResult About(int id)
-        {
-            Employer? employer = context.Employers?.Where(e=>e.EmployerId == id).First();
-
-            return View(employer);
-        }
-
     }
 }
 
