@@ -35,7 +35,7 @@ namespace TechJobs6Persistent.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddJobViewModel addJobViewModel)
+        public IActionResult ProcessAddJobForm()
         {
             return View();
         }
