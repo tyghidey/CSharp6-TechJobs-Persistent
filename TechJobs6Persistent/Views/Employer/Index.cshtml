@@ -18,11 +18,11 @@ else
         {
             <tr>
                 <td>@employer.Id</td>
-                <td>@employer.Name</td>
+                <td><a asp-controller="Employer" asp-action="About" asp-route-id="@employer.Id">@employer.Name</a></td>
                 <td>@employer.Location</td>
             </tr>
         }
     </table>
 }
 
-<p><a asp-controller="Employer" asp-action="Create">Add an Employer</a></p>
+<p><a asp-controller="Employer" asp-action="Create">Add a new employer</a></p>
