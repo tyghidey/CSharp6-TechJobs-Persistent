@@ -1,4 +1,5 @@
-﻿using System.Linq;
+/* TODO: uncomment this line 
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using TechJobs6Persistent.Data;
@@ -298,4 +299,4 @@ namespace Task.Tests
 		}
 	}
 }
-
+TODO: uncomment this line */
