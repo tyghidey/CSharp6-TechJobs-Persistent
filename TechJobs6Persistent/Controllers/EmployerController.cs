@@ -14,30 +14,56 @@ namespace TechJobs6Persistent.Controllers
 {
     public class EmployerController : Controller
     { 
+        private JobDbContext context;
+        
+        public EmployerController(JobDbContext dbContext)
+        {
+            context = dbContext;
+        }
+
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            List<Employer> Employer = context.Employers.ToList();
+            return View(Employer);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            AddEmployerViewModel addEmployerViewModel = new AddEmployerViewModel();
+            return View(addEmployerViewModel);
         }
 
         [HttpPost]
-        public IActionResult ProcessCreateEmployerForm()
+        public IActionResult ProcessCreateEmployerForm(AddEmployerViewModel addEmployerViewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                Employer newEmployer = new Employer
+                {
+                    Name = addEmployerViewModel.Name,
+                    Location = addEmployerViewModel.Location
+                };
+
+                context.Employers.Add(newEmployer);
+                context.SaveChanges();
+                
+                return Redirect("Index");
+                //return Redirect("/Employer");
+            }
+            return View("Create", addEmployerViewModel);
         }
 
         public IActionResult About(int id)
         {
-            return View();
+            Employer? employer = context.Employers.Find(id);
+            if (employer != null)
+            {
+                return View(employer);
+            }
+            return View("Employer");
         }
-
     }
 }
-
