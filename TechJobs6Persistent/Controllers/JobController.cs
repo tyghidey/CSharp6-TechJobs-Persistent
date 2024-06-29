@@ -46,7 +46,7 @@ namespace TechJobs6Persistent.Controllers
                 Job newJob = new Job
                 {
                     Name = addJobViewModel.Name,
-                    Employer = employer
+                    Employer = employer,
                     //EmployerId = addJobViewModel.EmployerId,  
                 };
 
