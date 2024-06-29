@@ -63,7 +63,7 @@ namespace TechJobs6Persistent.Controllers
             {
                 return View(employer);
             }
-            return View("Employer");
+            return View("Index");
         }
     }
 }
